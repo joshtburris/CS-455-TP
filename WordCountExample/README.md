@@ -10,4 +10,4 @@
 ### How to execute
 
 * build the example with 'gradle shadowJar' (uses the shadow plugin)
-* execute the command: bash $SPARK_HOME/bin/spark-submit --class org.apache.spark.examples.JavaWordCount --master spark://<master-ip-address>:7077 build/libs/WordCountExample-all.jar /Tom_Sawyer.txt
+* execute the command: bash $SPARK_HOME/bin/spark-submit --class org.apache.spark.examples.JavaWordCount --master spark://master-ip-address:7077 build/libs/WordCountExample-all.jar /Tom_Sawyer.txt
