@@ -3,7 +3,7 @@
 ### Prerequisites
 
 * Make sure you have a local hadoop cluster running
-* Add Tom_Sawyer.txt to your local hadoop cluster (JavaWordCount example reads from your local hadoop cluster)
+* Add Tom_Sawyer.txt to your local hadoop cluster (JavaWordCount example reads from your local hadoop cluster, I believe it looks at the HADOOP_CONF_DIR variable)
 * Create a spark cluster with 1 or 2 workers
 
 
