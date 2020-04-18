@@ -1,4 +1,4 @@
-## Word count example with Tom_Sawyer.txt
+## Word count example with lorem_ipsum.txt
 
 ### Prerequisites
 
