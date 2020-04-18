@@ -5,6 +5,7 @@
 * Make sure you have a local hadoop cluster running
 * Add lorem_ipsum.txt to your local hadoop cluster (JavaWordCount example reads from your local hadoop cluster, I believe it looks at the HADOOP_CONF_DIR variable)
 * Create a spark cluster with 1 or 2 workers
+* Make sure SPARK_HOME is set to the path of your spark directory
 
 
 ### How to execute
