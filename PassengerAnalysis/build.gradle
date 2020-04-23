@@ -1,0 +1,23 @@
+plugins {
+  id "com.github.johnrengelman.shadow" version "5.2.0"
+}
+
+apply plugin: 'java'
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  compile 'org.apache.spark:spark-core_2.11:2.4.0'
+  compile 'org.apache.spark:spark-sql_2.11:2.4.0'
+}
+
+jar {
+  zip64=true
+  from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+}
+
+shadowJar {
+  zip64=true
+}
