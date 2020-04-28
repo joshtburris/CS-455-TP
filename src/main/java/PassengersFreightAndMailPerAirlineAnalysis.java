@@ -21,71 +21,160 @@ public final class PassengersFreightAndMailPerAirlineAnalysis {
       .getOrCreate();
     
     //test case
-    //JavaRDD<Row> rows = spark.read().csv("/TP/1990.csv").javaRDD();
+    //JavaRDD<Row> rows = spark.read().csv("/TP/t100_market/t100_market_1990.csv").javaRDD();
     
-    JavaRDD<Row> rows = spark.read().csv("/TP/1990.csv", "/TP/1991.csv", "/TP/1992.csv", "/TP/1993.csv", "/TP/1994.csv", "/TP/1995.csv",
-        "/TP/1996.csv", "/TP/1997.csv", "/TP/1998.csv", "/TP/1999.csv", "/TP/2000.csv", "/TP/2001.csv", "/TP/2002.csv", "/TP/2003.csv",
-        "/TP/2004.csv", "/TP/2005.csv", "/TP/2006.csv", "/TP/2007.csv", "/TP/2008.csv", "/TP/2009.csv", "/TP/2010.csv", "/TP/2011.csv",
-        "/TP/2012.csv", "/TP/2013.csv", "/TP/2014.csv", "/TP/2015.csv", "/TP/2016.csv", "/TP/2017.csv", "/TP/2018.csv", "/TP/2019.csv").javaRDD();
+    JavaRDD<Row> rows = spark.read().csv("/TP/t100_market/t100_market_1990.csv","/TP/t100_market/t100_market_1991.csv","/TP/t100_market/t100_market_1992.csv","/TP/t100_market/t100_market_1993.csv","/TP/t100_market/t100_market_1994.csv","/TP/t100_market/t100_market_1995.csv","/TP/t100_market/t100_market_1996.csv","/TP/t100_market/t100_market_1997.csv","/TP/t100_market/t100_market_1998.csv","/TP/t100_market/t100_market_1999.csv","/TP/t100_market/t100_market_2000.csv","/TP/t100_market/t100_market_2001.csv","/TP/t100_market/t100_market_2002.csv","/TP/t100_market/t100_market_2003.csv","/TP/t100_market/t100_market_2004.csv","/TP/t100_market/t100_market_2005.csv","/TP/t100_market/t100_market_2006.csv","/TP/t100_market/t100_market_2007.csv","/TP/t100_market/t100_market_2008.csv","/TP/t100_market/t100_market_2009.csv","/TP/t100_market/t100_market_2010.csv","/TP/t100_market/t100_market_2011.csv","/TP/t100_market/t100_market_2012.csv","/TP/t100_market/t100_market_2013.csv","/TP/t100_market/t100_market_2014.csv","/TP/t100_market/t100_market_2015.csv","/TP/t100_market/t100_market_2016.csv","/TP/t100_market/t100_market_2017.csv","/TP/t100_market/t100_market_2018.csv","/TP/t100_market/t100_market_2019.csv").javaRDD();
 
-    JavaPairRDD<String, Double> airlinePassengersPerMonth = rows.mapToPair(row -> {
+    JavaPairRDD<String, Double> airlinePassengersPerMonthDomestic = rows.mapToPair(row -> {
         try {
-            String year = row.getString(31);
-            String month = row.getString(33);
-            if (month.length() == 1) {
-                month = "0" + month;
+            if (row.getString(40).equals("DU")){
+                String year = row.getString(35);
+                String month = row.getString(37);
+                if (month.length() == 1) {
+                    month = "0" + month;
+                }
+                String uniqueCarrierName = row.getString(6);
+                Double passengers = Double.parseDouble(row.getString(0));
+                return new Tuple2<>(year + "-" + month + ",\"" + uniqueCarrierName + "\"", passengers);
             }
-            String uniqueCarrierName = row.getString(6);
-            Double passengers = Double.parseDouble(row.getString(0));
-            return new Tuple2<>(year + "-" + month + ",\"" + uniqueCarrierName + "\"", passengers);
+            else {
+                return new Tuple2<>("null", 0.0);
+            }
         }
         catch (NumberFormatException e) {
             return new Tuple2<>("null", 0.0);
         }
     }).reduceByKey((i1, i2) -> i1 + i2);
 
-    JavaPairRDD<String, Double> airlineFreightPerMonth = rows.mapToPair(row -> {
+    JavaPairRDD<String, Double> airlinePassengersPerMonthInternational = rows.mapToPair(row -> {
         try {
-            String year = row.getString(31);
-            String month = row.getString(33);
-            if (month.length() == 1) {
-                month = "0" + month;
+            if (row.getString(40).equals("IU")){
+                String year = row.getString(35);
+                String month = row.getString(37);
+                if (month.length() == 1) {
+                    month = "0" + month;
+                }
+                String uniqueCarrierName = row.getString(6);
+                Double passengers = Double.parseDouble(row.getString(0));
+                return new Tuple2<>(year + "-" + month + ",\"" + uniqueCarrierName + "\"", passengers);
             }
-            String uniqueCarrierName = row.getString(6);
-            Double freight = Double.parseDouble(row.getString(1));
-            return new Tuple2<>(year + "-" + month + ",\"" + uniqueCarrierName + "\"", freight);
+            else {
+                return new Tuple2<>("null", 0.0);
+            }
         }
         catch (NumberFormatException e) {
             return new Tuple2<>("null", 0.0);
         }
     }).reduceByKey((i1, i2) -> i1 + i2);
 
-    JavaPairRDD<String, Double> airlineMailPerMonth = rows.mapToPair(row -> {
+    JavaPairRDD<String, Double> airlineFreightPerMonthDomestic = rows.mapToPair(row -> {
         try {
-            String year = row.getString(31);
-            String month = row.getString(33);
+            if (row.getString(40).equals("DU")) {
+                String year = row.getString(35);
+                String month = row.getString(37);
+                if (month.length() == 1) {
+                    month = "0" + month;
+                }
+                String uniqueCarrierName = row.getString(6);
+                Double freight = Double.parseDouble(row.getString(1));
+                return new Tuple2<>(year + "-" + month + ",\"" + uniqueCarrierName + "\"", freight);
+            }
+            else {
+                return new Tuple2<>("null", 0.0);
+            }
+        }
+        catch (NumberFormatException e) {
+            return new Tuple2<>("null", 0.0);
+        }
+    }).reduceByKey((i1, i2) -> i1 + i2);
+
+    JavaPairRDD<String, Double> airlineFreightPerMonthInternational = rows.mapToPair(row -> {
+        try {
+            if (row.getString(40).equals("IU")) {
+                String year = row.getString(35);
+                String month = row.getString(37);
+                if (month.length() == 1) {
+                    month = "0" + month;
+                }
+                String uniqueCarrierName = row.getString(6);
+                Double freight = Double.parseDouble(row.getString(1));
+                return new Tuple2<>(year + "-" + month + ",\"" + uniqueCarrierName + "\"", freight);
+            }
+            else {
+                return new Tuple2<>("null", 0.0);
+            }
+        }
+        catch (NumberFormatException e) {
+            return new Tuple2<>("null", 0.0);
+        }
+    }).reduceByKey((i1, i2) -> i1 + i2);
+
+    JavaPairRDD<String, Double> airlineMailPerMonthDomestic = rows.mapToPair(row -> {
+        try {
+            if (row.getString(40).equals("DU")) {
+            String year = row.getString(35);
+            String month = row.getString(37);
             if (month.length() == 1) {
                 month = "0" + month;
             }
             String uniqueCarrierName = row.getString(6);
             Double mail = Double.parseDouble(row.getString(2));
             return new Tuple2<>(year + "-" + month + ",\"" + uniqueCarrierName + "\"", mail);
+            }
+            else {
+                return new Tuple2<>("null", 0.0);
+            }
         }
         catch (NumberFormatException e) {
             return new Tuple2<>("null", 0.0);
         }
     }).reduceByKey((i1, i2) -> i1 + i2);
 
-    JavaPairRDD<String, Tuple2<Tuple2<Double, Double>, Double>> airlinePassengersFreightAndMailPerMonth = airlinePassengersPerMonth.join(airlineFreightPerMonth).join(airlineMailPerMonth).sortByKey();
+    JavaPairRDD<String, Double> airlineMailPerMonthInternational = rows.mapToPair(row -> {
+        try {
+            if (row.getString(40).equals("IU")) {
+            String year = row.getString(35);
+            String month = row.getString(37);
+            if (month.length() == 1) {
+                month = "0" + month;
+            }
+            String uniqueCarrierName = row.getString(6);
+            Double mail = Double.parseDouble(row.getString(2));
+            return new Tuple2<>(year + "-" + month + ",\"" + uniqueCarrierName + "\"", mail);
+            }
+            else {
+                return new Tuple2<>("null", 0.0);
+            }
+        }
+        catch (NumberFormatException e) {
+            return new Tuple2<>("null", 0.0);
+        }
+    }).reduceByKey((i1, i2) -> i1 + i2);
 
-    List<Tuple2<String, Tuple2<Tuple2<Double, Double>, Double>>> output = airlinePassengersFreightAndMailPerMonth.collect();
-    File outputFile = new File("./airline-passenger-freight-mail-output.csv");
-    BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile));
-    writer.write("DATE" + "," + "UNIQUE_CARRIER_NAME" + "," + "TOTAL_PASSENGERS" + "," + "TOTAL_FREIGHT" + "," + "TOTAL_MAIL\n");
-    for (Tuple2<String,Tuple2<Tuple2<Double, Double>, Double>> tuple : output) {
-      writer.write(tuple._1() + "," + tuple._2()._1()._1() + "," + tuple._2()._1()._2() + "," + tuple._2()._2() + "\n");
+    //write domestic data to file
+    JavaPairRDD<String, Tuple2<Tuple2<Double, Double>, Double>> airlinePassengersFreightAndMailPerMonthDomestic = airlinePassengersPerMonthDomestic.join(airlineFreightPerMonthDomestic).join(airlineMailPerMonthDomestic).sortByKey();
+
+    List<Tuple2<String, Tuple2<Tuple2<Double, Double>, Double>>> domesticOutput = airlinePassengersFreightAndMailPerMonthDomestic.collect();
+    File domesticOutputFile = new File("./domestic-airline-passenger-freight-mail-output.csv");
+    BufferedWriter writerDomestic = new BufferedWriter(new FileWriter(domesticOutputFile));
+    writerDomestic.write("DATE" + "," + "UNIQUE_CARRIER_NAME" + "," + "TOTAL_PASSENGERS" + "," + "TOTAL_FREIGHT" + "," + "TOTAL_MAIL\n");
+    for (Tuple2<String,Tuple2<Tuple2<Double, Double>, Double>> tuple : domesticOutput) {
+      writerDomestic.write(tuple._1() + "," + tuple._2()._1()._1() + "," + tuple._2()._1()._2() + "," + tuple._2()._2() + "\n");
     }
-    writer.close();
+    writerDomestic.close();
+
+    //write international data to file
+    JavaPairRDD<String, Tuple2<Tuple2<Double, Double>, Double>> airlinePassengersFreightAndMailPerMonthInternational = airlinePassengersPerMonthInternational.join(airlineFreightPerMonthInternational).join(airlineMailPerMonthInternational).sortByKey();
+
+    List<Tuple2<String, Tuple2<Tuple2<Double, Double>, Double>>> internationalOutput = airlinePassengersFreightAndMailPerMonthInternational.collect();
+    File internationalOutputFile = new File("./international-airline-passenger-freight-mail-output.csv");
+    BufferedWriter writerInternational = new BufferedWriter(new FileWriter(internationalOutputFile));
+    writerInternational.write("DATE" + "," + "UNIQUE_CARRIER_NAME" + "," + "TOTAL_PASSENGERS" + "," + "TOTAL_FREIGHT" + "," + "TOTAL_MAIL\n");
+    for (Tuple2<String,Tuple2<Tuple2<Double, Double>, Double>> tuple : internationalOutput) {
+      writerInternational.write(tuple._1() + "," + tuple._2()._1()._1() + "," + tuple._2()._1()._2() + "," + tuple._2()._2() + "\n");
+    }
+    writerInternational.close();
+
     spark.stop();
   } 
 }
