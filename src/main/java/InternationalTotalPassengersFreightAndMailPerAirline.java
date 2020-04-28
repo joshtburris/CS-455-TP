@@ -15,15 +15,17 @@ public final class InternationalTotalPassengersFreightAndMailPerAirline {
 
   public static void main(String[] args) throws Exception {
 
+    if (args.length < 1) {
+      System.out.println("You must pass in at least 1 filepath");
+      System.exit(1);
+    }
+
     SparkSession spark = SparkSession
       .builder()
       .appName("InternationalTotalPassengersFreightAndMailPerAirline")
       .getOrCreate();
     
-    //test case
-    //JavaRDD<Row> rows = spark.read().csv(args[0]).javaRDD();
-    
-    JavaRDD<Row> rows = spark.read().csv("/TP/t100_market/t100_market_1990.csv","/TP/t100_market/t100_market_1991.csv","/TP/t100_market/t100_market_1992.csv","/TP/t100_market/t100_market_1993.csv","/TP/t100_market/t100_market_1994.csv","/TP/t100_market/t100_market_1995.csv","/TP/t100_market/t100_market_1996.csv","/TP/t100_market/t100_market_1997.csv","/TP/t100_market/t100_market_1998.csv","/TP/t100_market/t100_market_1999.csv","/TP/t100_market/t100_market_2000.csv","/TP/t100_market/t100_market_2001.csv","/TP/t100_market/t100_market_2002.csv","/TP/t100_market/t100_market_2003.csv","/TP/t100_market/t100_market_2004.csv","/TP/t100_market/t100_market_2005.csv","/TP/t100_market/t100_market_2006.csv","/TP/t100_market/t100_market_2007.csv","/TP/t100_market/t100_market_2008.csv","/TP/t100_market/t100_market_2009.csv","/TP/t100_market/t100_market_2010.csv","/TP/t100_market/t100_market_2011.csv","/TP/t100_market/t100_market_2012.csv","/TP/t100_market/t100_market_2013.csv","/TP/t100_market/t100_market_2014.csv","/TP/t100_market/t100_market_2015.csv","/TP/t100_market/t100_market_2016.csv","/TP/t100_market/t100_market_2017.csv","/TP/t100_market/t100_market_2018.csv","/TP/t100_market/t100_market_2019.csv").javaRDD();
+    JavaRDD<Row> rows = spark.read().csv(args).javaRDD();
 
     JavaPairRDD<String, Double> airlinePassengersPerMonthInternational = rows.mapToPair(row -> {
         try {
@@ -79,7 +81,7 @@ public final class InternationalTotalPassengersFreightAndMailPerAirline {
     List<Tuple2<String, Tuple2<Tuple2<Double, Double>, Double>>> internationalOutput = airlinePassengersFreightAndMailPerMonthInternational.collect();
     File internationalOutputFile = new File("./international-total-airline-passenger-freight-mail.csv");
     BufferedWriter writerInternational = new BufferedWriter(new FileWriter(internationalOutputFile));
-    writerInternational.write("AIRLINEID-UNIQUE_CARRIER_NAME" + "," + "TOTAL_PASSENGERS" + "," + "TOTAL_FREIGHT" + "," + "TOTAL_MAIL\n");
+    writerInternational.write("UNIQUE_CARRIER_NAME" + "," + "TOTAL_PASSENGERS" + "," + "TOTAL_FREIGHT" + "," + "TOTAL_MAIL\n");
     for (Tuple2<String,Tuple2<Tuple2<Double, Double>, Double>> tuple : internationalOutput) {
       writerInternational.write(tuple._1() + "," + tuple._2()._1()._1() + "," + tuple._2()._1()._2() + "," + tuple._2()._2() + "\n");
     }
