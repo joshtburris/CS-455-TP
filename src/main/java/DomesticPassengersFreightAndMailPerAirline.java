@@ -100,5 +100,6 @@ public final class DomesticPassengersFreightAndMailPerAirline {
     }
     writerDomestic.close();
 
-    spark.stop(); 
+    spark.stop();
+  } 
 }
