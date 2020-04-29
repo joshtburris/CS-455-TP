@@ -6,6 +6,7 @@ import org.apache.spark.sql.SparkSession;
 import org.apache.spark.sql.Row;
 
 import java.util.List;
+import java.util.Arrays;
 import java.lang.NumberFormatException;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -14,8 +15,21 @@ import java.io.File;
 public final class InternationalPassengersFreightAndMailPerAirline {
 
   public static void main(String[] args) throws Exception {
-
+    final boolean uniqueCarrierSpecified;
+    final String uniqueCarrierArgumentString;
     if (args.length < 1) {
+      System.out.println("You must pass in at least 1 filepath");
+      System.exit(1);
+    }
+    if (args[0].equals("-u") && args.length > 1) {
+      uniqueCarrierSpecified = true;
+      uniqueCarrierArgumentString = args[1];
+    }
+    else {
+      uniqueCarrierSpecified = false;
+      uniqueCarrierArgumentString = "";
+    }
+    if (uniqueCarrierSpecified && args.length < 3) {
       System.out.println("You must pass in at least 1 filepath");
       System.exit(1);
     }
@@ -24,8 +38,15 @@ public final class InternationalPassengersFreightAndMailPerAirline {
       .builder()
       .appName("InternationalPassengersFreightAndMailPerAirline")
       .getOrCreate();
-    
-    JavaRDD<Row> rows = spark.read().csv(args).javaRDD();
+
+    String[] filepaths;
+    if (uniqueCarrierSpecified) {
+      filepaths = Arrays.copyOfRange(args, 2, args.length);
+    }
+    else {
+      filepaths = args;
+    }
+    JavaRDD<Row> rows = spark.read().csv(filepaths).javaRDD();
 
     JavaPairRDD<String, Double> airlinePassengersPerMonthInternational = rows.mapToPair(row -> {
         try {
@@ -36,6 +57,9 @@ public final class InternationalPassengersFreightAndMailPerAirline {
                     month = "0" + month;
                 }
                 String uniqueCarrierName = row.getString(6);
+                if (uniqueCarrierSpecified && (!uniqueCarrierName.equals(uniqueCarrierArgumentString))){
+                    return new Tuple2<>("null", 0.0);
+                }
                 Double passengers = Double.parseDouble(row.getString(0));
                 return new Tuple2<>(year + "-" + month + ",\"" + uniqueCarrierName + "\"", passengers);
             }
@@ -44,6 +68,9 @@ public final class InternationalPassengersFreightAndMailPerAirline {
             }
         }
         catch (NumberFormatException e) {
+            return new Tuple2<>("null", 0.0);
+        }
+        catch (NullPointerException e) {
             return new Tuple2<>("null", 0.0);
         }
     }).reduceByKey((i1, i2) -> i1 + i2);
@@ -57,6 +84,9 @@ public final class InternationalPassengersFreightAndMailPerAirline {
                     month = "0" + month;
                 }
                 String uniqueCarrierName = row.getString(6);
+                if (uniqueCarrierSpecified && (!uniqueCarrierName.equals(uniqueCarrierArgumentString))){
+                    return new Tuple2<>("null", 0.0);
+                }
                 Double freight = Double.parseDouble(row.getString(1));
                 return new Tuple2<>(year + "-" + month + ",\"" + uniqueCarrierName + "\"", freight);
             }
@@ -65,6 +95,9 @@ public final class InternationalPassengersFreightAndMailPerAirline {
             }
         }
         catch (NumberFormatException e) {
+            return new Tuple2<>("null", 0.0);
+        }
+        catch (NullPointerException e) {
             return new Tuple2<>("null", 0.0);
         }
     }).reduceByKey((i1, i2) -> i1 + i2);
@@ -78,6 +111,9 @@ public final class InternationalPassengersFreightAndMailPerAirline {
                 month = "0" + month;
             }
             String uniqueCarrierName = row.getString(6);
+            if (uniqueCarrierSpecified && (!uniqueCarrierName.equals(uniqueCarrierArgumentString))){
+                return new Tuple2<>("null", 0.0);
+            }
             Double mail = Double.parseDouble(row.getString(2));
             return new Tuple2<>(year + "-" + month + ",\"" + uniqueCarrierName + "\"", mail);
             }
@@ -86,6 +122,9 @@ public final class InternationalPassengersFreightAndMailPerAirline {
             }
         }
         catch (NumberFormatException e) {
+            return new Tuple2<>("null", 0.0);
+        }
+        catch (NullPointerException e) {
             return new Tuple2<>("null", 0.0);
         }
     }).reduceByKey((i1, i2) -> i1 + i2);

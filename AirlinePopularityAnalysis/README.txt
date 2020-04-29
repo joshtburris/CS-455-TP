@@ -34,9 +34,13 @@ File Descriptions:
 
     - DomesticPassengersFreightAndMailPerAirline.java: Spark job for finding the domestic total number of passengers, freight, and mail per airline per month. Can take 1 to many T-100 Market data files with ALL fields selected as arguments.
 
+      - NOTE: This class can take a -u flag followed by a string of an airline carrier name to only look at data for that airline specifically. 
+
     - DomesticTotalPassengersFreightAndMailPerAirline.java: Spark job for finding the domestic total number of passengers, freight, and mail per airline across all files submitted as arguments. Files supplied as arguments must be from the T-100 Market data with ALL fields selected.
 
     - InternationalPassengersFreightAndMailPerAirline.java: Spark job for finding the international total number of passengers, freight, and mail per airline per airline per month. Can take 1 to many T-100 Market data files with ALL fields selected as arguments.
+
+      - NOTE: This class can take a -u flag followed by a string of an airline carrier name to only look at data for that airline specifically.
 
     - InternationalTotalPassengersFreightAndMailPerAirline.java: Spark job for finding the international total number of passengers, freight, and mail per airline across all files submitted as arguments. Files supplied as arguments must be from the T-100 Market data with ALL fields selected.
 
@@ -45,4 +49,8 @@ File Descriptions:
     - TotalNetIncomePerQuarter.java: Spark job for finding the total net income per quarter from all airlines combined.
 
     - TotalNetIncomePerAirline.java: Spark job for finding the total net income for each airline.
+
+    - TotalNetIncomeOfSpecificAirlinePerQuarter.java: Spark job for find the total net income of a specific airline for each quarter.
+
+      - Example to find net income of Southwest Airlines: TotalNetIncomeOfSpecificAirlinePerQuarter "Southwest Airlines Inc." /schedule_p12.csv
 
