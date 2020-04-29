@@ -1,0 +1,47 @@
+[info] Packaging /s/bach/c/under/joshtb/IdeaProjects/CS-455-TP/scalaTasks/target/scala-2.11/tasks_2.11-1.0.jar ...
+[debug] Input file mappings:
+[debug] 	Task2$$anonfun$main$1.class
+[debug] 	  /s/bach/c/under/joshtb/IdeaProjects/CS-455-TP/scalaTasks/target/scala-2.11/classes/Task2$$anonfun$main$1.class
+[debug] 	Task3$$anonfun$main$1.class
+[debug] 	  /s/bach/c/under/joshtb/IdeaProjects/CS-455-TP/scalaTasks/target/scala-2.11/classes/Task3$$anonfun$main$1.class
+[debug] 	Task1$$anonfun$parseCSV$1.class
+[debug] 	  /s/bach/c/under/joshtb/IdeaProjects/CS-455-TP/scalaTasks/target/scala-2.11/classes/Task1$$anonfun$parseCSV$1.class
+[debug] 	ExampleAnalysis$$anonfun$2.class
+[debug] 	  /s/bach/c/under/joshtb/IdeaProjects/CS-455-TP/scalaTasks/target/scala-2.11/classes/ExampleAnalysis$$anonfun$2.class
+[debug] 	Task3$$anonfun$parseCSV$1.class
+[debug] 	  /s/bach/c/under/joshtb/IdeaProjects/CS-455-TP/scalaTasks/target/scala-2.11/classes/Task3$$anonfun$parseCSV$1.class
+[debug] 	Task2$$anonfun$parseCSV$1.class
+[debug] 	  /s/bach/c/under/joshtb/IdeaProjects/CS-455-TP/scalaTasks/target/scala-2.11/classes/Task2$$anonfun$parseCSV$1.class
+[debug] 	Task1$.class
+[debug] 	  /s/bach/c/under/joshtb/IdeaProjects/CS-455-TP/scalaTasks/target/scala-2.11/classes/Task1$.class
+[debug] 	Task1.class
+[debug] 	  /s/bach/c/under/joshtb/IdeaProjects/CS-455-TP/scalaTasks/target/scala-2.11/classes/Task1.class
+[debug] 	ExampleAnalysis$$anonfun$1.class
+[debug] 	  /s/bach/c/under/joshtb/IdeaProjects/CS-455-TP/scalaTasks/target/scala-2.11/classes/ExampleAnalysis$$anonfun$1.class
+[debug] 	ExampleAnalysis$$anonfun$3.class
+[debug] 	  /s/bach/c/under/joshtb/IdeaProjects/CS-455-TP/scalaTasks/target/scala-2.11/classes/ExampleAnalysis$$anonfun$3.class
+[debug] 	ExampleAnalysis.class
+[debug] 	  /s/bach/c/under/joshtb/IdeaProjects/CS-455-TP/scalaTasks/target/scala-2.11/classes/ExampleAnalysis.class
+[debug] 	ExampleAnalysis$.class
+[debug] 	  /s/bach/c/under/joshtb/IdeaProjects/CS-455-TP/scalaTasks/target/scala-2.11/classes/ExampleAnalysis$.class
+[debug] 	Task2$.class
+[debug] 	  /s/bach/c/under/joshtb/IdeaProjects/CS-455-TP/scalaTasks/target/scala-2.11/classes/Task2$.class
+[debug] 	Task1$$anonfun$main$1.class
+[debug] 	  /s/bach/c/under/joshtb/IdeaProjects/CS-455-TP/scalaTasks/target/scala-2.11/classes/Task1$$anonfun$main$1.class
+[debug] 	Task1$$anonfun$main$1$$anonfun$apply$mcVI$sp$1$$anonfun$1.class
+[debug] 	  /s/bach/c/under/joshtb/IdeaProjects/CS-455-TP/scalaTasks/target/scala-2.11/classes/Task1$$anonfun$main$1$$anonfun$apply$mcVI$sp$1$$anonfun$1.class
+[debug] 	Task3$$anonfun$main$1$$anonfun$1.class
+[debug] 	  /s/bach/c/under/joshtb/IdeaProjects/CS-455-TP/scalaTasks/target/scala-2.11/classes/Task3$$anonfun$main$1$$anonfun$1.class
+[debug] 	Task1$$anonfun$main$1$$anonfun$apply$mcVI$sp$1.class
+[debug] 	  /s/bach/c/under/joshtb/IdeaProjects/CS-455-TP/scalaTasks/target/scala-2.11/classes/Task1$$anonfun$main$1$$anonfun$apply$mcVI$sp$1.class
+[debug] 	Task3$.class
+[debug] 	  /s/bach/c/under/joshtb/IdeaProjects/CS-455-TP/scalaTasks/target/scala-2.11/classes/Task3$.class
+[debug] 	Task3.class
+[debug] 	  /s/bach/c/under/joshtb/IdeaProjects/CS-455-TP/scalaTasks/target/scala-2.11/classes/Task3.class
+[debug] 	Task2$$anonfun$main$1$$anonfun$apply$mcVI$sp$1$$anonfun$1.class
+[debug] 	  /s/bach/c/under/joshtb/IdeaProjects/CS-455-TP/scalaTasks/target/scala-2.11/classes/Task2$$anonfun$main$1$$anonfun$apply$mcVI$sp$1$$anonfun$1.class
+[debug] 	Task2.class
+[debug] 	  /s/bach/c/under/joshtb/IdeaProjects/CS-455-TP/scalaTasks/target/scala-2.11/classes/Task2.class
+[debug] 	Task2$$anonfun$main$1$$anonfun$apply$mcVI$sp$1.class
+[debug] 	  /s/bach/c/under/joshtb/IdeaProjects/CS-455-TP/scalaTasks/target/scala-2.11/classes/Task2$$anonfun$main$1$$anonfun$apply$mcVI$sp$1.class
+[info] Done packaging.
