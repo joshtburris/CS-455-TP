@@ -3,7 +3,7 @@ build:
 
 task1:
 	-rm -R ./T1-out
-	-rm -R ~/spark-2.4.5-bin-hadoop2.7/work/*/
+	-rm -R ~/spark-2.4.5-bin-hadoop2.7/work/*
 	-${HADOOP_HOME}/bin/hadoop fs -rm -R /tp/T1-out
 	${SPARK_HOME}/bin/spark-submit --master spark://boise:30238 --deploy-mode cluster --class Task1 --supervise target/scala-2.11/tasks_2.11-1.0.jar
 
@@ -15,7 +15,7 @@ task2:
 
 task3:
 	-rm -R ./T3-out
-	#-rm -R ~/spark-2.4.5-bin-hadoop2.7/work/*
+	-rm -R ~/spark-2.4.5-bin-hadoop2.7/work/*
 	-${HADOOP_HOME}/bin/hadoop fs -rm -R /tp/T3-out
 	${SPARK_HOME}/bin/spark-submit --master spark://boise:30238 --deploy-mode cluster --class Task3 --supervise target/scala-2.11/tasks_2.11-1.0.jar
 
